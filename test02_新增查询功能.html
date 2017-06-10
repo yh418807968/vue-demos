@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test01</title>
+	<link rel="stylesheet" href="style.css" />
+	
+</head>
+<body>
+	<div id="app">
+		<div class="container">
+			<div class="form-group">
+				<label >search</label>
+				<input type="text" class="search-input" v-model="searchStr">
+			</div>
+		</div>
+		<div class="container">
+			<simple-grid :data-list="people" :columns="columns" :search-key="searchStr" >
+			</simple-grid>
+		</div>
+	</div>
+
+	<template id="grid-template">
+	    <table>
+	    	<thead>
+	    		<tr>
+	    			<th v-for="col in columns">
+	    				{{col.name}}
+	    			</th>
+	    			<th>
+	    				delete
+	    			</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr v-for="(entry,index) in filterFn(dataList,searchKey)">
+	    			<td v-for="col in columns">
+	    				{{entry[col.name]}}
+	    			</td>
+	    			<td  class="text-center">
+	    			    <button class="btn-danger" @click="deleteItem(index)">delete</button>
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+	</template>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script>
+	Vue.component("simple-grid",{
+		template:"#grid-template",
+		props:["dataList","columns","searchKey"],
+		methods:{
+			deleteItem:function(index){
+				var data = this.dataList;
+				data.splice(index,1);
+			},
+			filterFn:function(dataList,searchKey){
+					return  this.dataList.filter(function(item){
+						var searchReg = new RegExp(searchKey)
+						return searchReg.test(item.name)
+					})
+				}
+		}
+
+	});
+		var vm = new Vue({
+			el: "#app",
+			data:{
+				searchStr: '',
+				columns:[
+				    {
+				    	name:"name"	
+				    },{
+				    	name:"age"
+
+				    },{
+				    	name:"sex"
+				    }
+				],
+				people:[
+	                {
+	                	name:"Jack",
+	                	age:22,
+	                	sex:"male"
+	                },
+	                {
+	                	name:"Linda",
+	                	age:24,
+	                	sex:"female"
+	                },
+	                {
+	                	name:"Mary",
+	                	age:33,
+	                	sex:"female"
+	                },
+	                {
+	                	name:"Bob",
+	                	age:13,
+	                	sex:"male"
+	                }
+
+				]
+			},
+			// methods:{
+				
+			// }
+		
+		});
+	</script>
+</body>
+
+
+</html>
