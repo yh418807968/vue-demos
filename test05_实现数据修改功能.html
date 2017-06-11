@@ -118,37 +118,25 @@
 					return searchReg.test(item.name)
 				})
 			},
-			// 弹出修改数据的对话框时，使用对象的深拷贝
-			initItemForUpdate: function(p) {
-			    var c = c || {};
-			    for (var i in p) {
-			        // 属性i是否为p对象的自有属性
-			        if (p.hasOwnProperty(i)) {
-			            if (typeof p[i] === 'object') {
-			                c[i] = Array.isArray(p[i]) ? [] : {}
-			                deepCopy(p[i], c[i])
-			            } else {
-			                // 属性是基础类型时，直接拷贝
-			                c[i] = p[i]
-			            }
-			        }
-			    }
-			    return c;
-			},
+			// // 弹出修改数据的对话框时，使用对象的深拷贝
+			// initItemForUpdate: function(p) {
+			//     var c = c || {};
+			//     for (var i in p) {
+			//         // 属性i是否为p对象的自有属性
+			//         if (p.hasOwnProperty(i)) {
+			//             if (typeof p[i] === 'object') {
+			//                 c[i] = Array.isArray(p[i]) ? [] : {}
+			//                 this.initItemForUpdate(p[i], c[i])
+			//             } else {
+			//                 // 属性是基础类型时，直接拷贝
+			//                 c[i] = p[i]
+			//             }
+			//         }
+			//     }
+			//     return c;
+			// },
 			updateItem: function() {
-			    // 获取主键列
-			    var keyColumn = this.keyColumn
-
-			    for (var i = 0; i < this.dataList.length; i++) {
-			        // 根据主键查找要修改的数据，然后将this.item数据更新到this.dataList[i]
-			        if (this.dataList[i][keyColumn] === this.item[keyColumn]) {
-			            for (var j in this.item) {
-			                this.dataList[i][j] = this.item[j]
-			            }
-			            break;
-			        }
-			    }
-			    this.$children[0].showDialog(false)
+		        this.$children[0].showDialog(false);
 			    // 修改完数据后，重置item对象
 			    this.item = {};
 			},
@@ -163,10 +151,11 @@
 				this.mode = 2
 					// 初始化this.item
 				this.item = {};
-					// 将选中的数据拷贝到this.item
-				this.item = this.initItemForUpdate(currentItem);
+				 //将原数据浅拷贝到item中，这样item随输入改变时，dataList会随之改变
+			    this.item = currentItem;
+				// this.item = this.initItemForUpdate(currentItem);
 				this.$children[0].showDialog(true);
-        	},
+        	}, 
         
 		},
 		data: function() {
@@ -176,21 +165,14 @@
 	            title: ''
 	        }
 		},
-        mounted: function() {
-			for(var i = 0; i < this.columns.length; i++) {
-				if(this.columns[i].isKey) {
-					this.keyColumn = this.columns[i]['name']
-					break;
-				}
-			}
-        },
 		components: {
 	        'modal-dialog': {
 	            template: '#dialog-template',
 	            data: function() {
 	                return {
 	                    // 对话框默认是不显示的
-	                    show: false
+	                    show: false,
+
 	                }
 	            },
 	            /*
