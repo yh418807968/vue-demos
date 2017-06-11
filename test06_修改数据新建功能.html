@@ -47,8 +47,8 @@
 	    	</tbody>
 	    </table>
 	    <div class="container">
-        <button class="btn" @click="openNewItemDialog('Create new item')">Create</button>
-    </div>
+             <button class="btn" @click="openNewItemDialog('Create new item')">Create</button>
+        </div>
 	     <modal-dialog :mode="mode" :title="title" :fields="columns" :item="item" v-on:create-item="createItem" v-on:update-item="updateItem"></modal-dialog>
     </div>
 	</template>
@@ -105,8 +105,7 @@
 	             if (!this.itemExists(keyColumn)) {
 	                 // 将item追加到dataList
 	                 this.dataList.push(this.item)
-	                 // 广播事件，传入参数false表示隐藏对话框
-	                 this.$broadcast('showDialog', false)
+	                 this.$children[0].showDialog(false);
 	                 // 新建完数据后，重置item对象
 	                 this.item = {}
 	             } else {
@@ -170,7 +169,6 @@
 				this.item = {};
 					// 将选中的数据拷贝到this.item
 				this.item = this.initItemForUpdate(currentItem);
-					// 广播事件，传入参数true表示显示对话框
 				this.$children[0].showDialog(true);
         	},
         	itemExists: function(keyColumn) {
