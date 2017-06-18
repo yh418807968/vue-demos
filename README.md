@@ -8,5 +8,5 @@
 
 vue-cli入门demo
 -----------
-此demo是根据博文[vue-cli入门——人员管理实例]（http://www.jianshu.com/p/5d9b341d650f）中的例子。学习vue-cli入门主要参照博文[基于vue-cli的快速构建]（http://www.jianshu.com/p/2769efeaa10a）和博文[vue-cli入门——人员管理实例]（http://www.jianshu.com/p/5d9b341d650f）。
+此demo是根据博文[vue-cli入门——人员管理实例](http://www.jianshu.com/p/5d9b341d650f)中的例子。学习vue-cli入门主要参照博文[基于vue-cli的快速构建](http://www.jianshu.com/p/2769efeaa10a)和博文[vue-cli入门——人员管理实例](http://www.jianshu.com/p/5d9b341d650f)。
 
