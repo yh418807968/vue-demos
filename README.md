@@ -14,3 +14,7 @@ vue-cli入门demo2
 -------------
 此demo是对组件入门demo中test_06例子的改写：test_06是采用script标签引入vue的方式，此demo是采用vue-cli。
 
+two-way binding
+-------------
+此demo是根据Vue双向绑定的原理，自行实现了相同的功能。具体讲解见博文[Vue双向绑定原理详解](http://www.cnblogs.com/youhong/p/7188449.html)
+
